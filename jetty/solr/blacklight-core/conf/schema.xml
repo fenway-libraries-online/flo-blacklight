@@ -526,8 +526,23 @@
      
    <!-- format is used for facet, display, and choosing which partial to use for the show view, so it must be stored and indexed -->
    <field name="format" type="string" indexed="true" stored="true"/>
-
    
+   <!-- BEGIN FLO customizations -->
+   <field name="suppressed"             type="boolean"  indexed="true" stored="true"/>
+   <field name="location"               type="string"   indexed="true" stored="true" multiValued="true"/>
+   <field name="institution"            type="string"   indexed="true" stored="true" multiValued="true"/>
+   <field name="location_display"       type="string"   indexed="true" stored="true" multiValued="true"/>
+   <field name="call_number_display"    type="string"   indexed="true" stored="true" multiValued="true"/>
+   <!-- Holdings info, in JSON -->
+   <field name="holdings"               type="string"   indexed="false" stored="true" multiValued="true"/>
+   <!-- RDA 33x fields -->
+   <field name="content_type"           type="string"   indexed="true" stored="true" multiValued="true"/>
+   <field name="media_type"             type="string"   indexed="true" stored="true" multiValued="true"/>
+   <field name="carrier_type"           type="string"   indexed="true" stored="true" multiValued="true"/>
+   <field name="content_type_display"   type="string"   indexed="false" stored="true" multiValued="true"/>
+   <field name="media_type_display"     type="string"   indexed="false" stored="true" multiValued="true"/>
+   <field name="carrier_type_display"   type="string"   indexed="false" stored="true" multiValued="true"/>
+   <!-- END FLO customizations -->
 
    <!-- Dynamic field definitions.  If a field name is not found, dynamicFields
         will be used if the name matches any of the patterns.
