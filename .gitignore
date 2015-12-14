@@ -13,6 +13,11 @@
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
+/jetty/*.log
 /tmp
 /log
 /Gemfile.lock
+/jetty/webapps
+/jetty/solr-webapp
+/jetty/solr/blacklight-core/data
+*.jar
