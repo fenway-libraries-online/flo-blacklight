@@ -212,6 +212,10 @@
          subtitle_vern_display,
          url_fulltext_display,
          url_suppl_display,
+         <!-- BEGIN FLO customizations -->
+         institution_facet,
+         access_facet,
+         <!-- END FLO customizations -->
        </str>
 
        <str name="facet">true</str>
