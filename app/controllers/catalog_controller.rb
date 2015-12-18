@@ -55,6 +55,14 @@ class CatalogController < ApplicationController
     #
     # :show may be set to false if you don't want the facet to be drawn in the 
     # facet bar
+    # ---------------------------------------------------- BEGIN FLO customizations
+    config.add_facet_field 'doctype_facet', :label => 'Document type'
+    config.add_facet_field 'institution_facet', :label => 'Institution'
+    config.add_facet_field 'access_facet', :label => 'Availability'
+    config.add_facet_field 'rda_content_type_facet', :label => 'Content'
+    config.add_facet_field 'rda_media_type_facet', :label => 'Media'
+    config.add_facet_field 'rda_carrier_type_facet', :label => 'Carrier'
+    # ---------------------------------------------------- END FLO customizations
     config.add_facet_field 'format', :label => 'Format'
     config.add_facet_field 'pub_date', :label => 'Publication Year', :single => true
     config.add_facet_field 'subject_topic_facet', :label => 'Topic', :limit => 20 
@@ -66,9 +74,9 @@ class CatalogController < ApplicationController
     config.add_facet_field 'example_pivot_field', :label => 'Pivot Field', :pivot => ['format', 'language_facet']
 
     config.add_facet_field 'example_query_facet_field', :label => 'Publish Date', :query => {
-       :years_5 => { :label => 'within 5 Years', :fq => "pub_date:[#{Time.now.year - 5 } TO *]" },
-       :years_10 => { :label => 'within 10 Years', :fq => "pub_date:[#{Time.now.year - 10 } TO *]" },
-       :years_25 => { :label => 'within 25 Years', :fq => "pub_date:[#{Time.now.year - 25 } TO *]" }
+       :years_5 => { :label => 'last 5 years', :fq => "pub_date:[#{Time.now.year - 5 } TO *]" },
+       :years_10 => { :label => 'last 10 years', :fq => "pub_date:[#{Time.now.year - 10 } TO *]" },
+       :years_25 => { :label => 'last 25 years', :fq => "pub_date:[#{Time.now.year - 25 } TO *]" }
     }
 
 
@@ -88,6 +96,10 @@ class CatalogController < ApplicationController
     config.add_index_field 'published_display', :label => 'Published'
     config.add_index_field 'published_vern_display', :label => 'Published'
     config.add_index_field 'lc_callnum_display', :label => 'Call number'
+    # ---------------------------------------------------- BEGIN FLO customizations
+    config.add_index_field 'lib', :label => 'Library holdings'
+    config.add_index_field 'onl', :label => 'Online access'
+    # ---------------------------------------------------- END FLO customizations
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display 
@@ -105,6 +117,12 @@ class CatalogController < ApplicationController
     config.add_show_field 'published_vern_display', :label => 'Published'
     config.add_show_field 'lc_callnum_display', :label => 'Call number'
     config.add_show_field 'isbn_t', :label => 'ISBN'
+
+    # ---------------------------------------------------- BEGIN FLO customizations
+    config.add_show_field 'poem_display', :label => 'Poem'
+    config.add_show_field 'lib', :label => 'Library holdings'
+    config.add_show_field 'onl', :label => 'Online access'
+    # ---------------------------------------------------- END FLO customizations
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
