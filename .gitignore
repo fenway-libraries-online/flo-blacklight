@@ -21,3 +21,6 @@
 /jetty/solr-webapp
 /jetty/solr/blacklight-core/data
 *.jar
+.byebug_history
+doc
+*~
