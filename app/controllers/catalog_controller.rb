@@ -99,10 +99,20 @@ class CatalogController < ApplicationController
     # ---------------------------------------------------- BEGIN FLO customizations
     config.add_index_field 'lib', :label => 'Library holdings'
     config.add_index_field 'onl', :label => 'Online access'
+    config.add_index_field 'course_display', :label => 'Course'
+    config.add_index_field 'instructor_display', :label => 'Instructor'
+    config.add_index_field 'institution_display', :label => 'Institution'
+    config.add_index_field 'department_display', :label => 'Department'
     # ---------------------------------------------------- END FLO customizations
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display 
+    # ---------------------------------------------------- BEGIN FLO customizations
+    config.add_show_field 'course_display', :label => 'Course'
+    config.add_show_field 'instructor_display', :label => 'Instructor'
+    config.add_show_field 'institution_display', :label => 'Institution'
+    config.add_show_field 'department_display', :label => 'Department'
+    # ---------------------------------------------------- END FLO customizations
     config.add_show_field 'title_display', :label => 'Title'
     config.add_show_field 'title_vern_display', :label => 'Title'
     config.add_show_field 'subtitle_display', :label => 'Subtitle'
