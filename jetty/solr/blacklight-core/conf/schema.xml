@@ -528,20 +528,20 @@
    <field name="format" type="string" indexed="true" stored="true"/>
    
    <!-- BEGIN FLO customizations -->
-   <field name="suppressed"             type="boolean"  indexed="true" stored="true"/>
-   <field name="location"               type="string"   indexed="true" stored="true" multiValued="true"/>
-   <field name="institution"            type="string"   indexed="true" stored="true" multiValued="true"/>
-   <field name="location_display"       type="string"   indexed="true" stored="true" multiValued="true"/>
-   <field name="call_number_display"    type="string"   indexed="true" stored="true" multiValued="true"/>
-   <!-- Holdings info, in JSON -->
-   <field name="holdings"               type="string"   indexed="false" stored="true" multiValued="true"/>
+   <field name="lib" type="string" indexed="false" stored="true" multiValued="true"/>
+   <field name="onl" type="string" indexed="false" stored="true" multiValued="true"/>
+
+   <!-- Holdings in libraries -->
+   <!-- <inst>|=|<loc>|=|<prestamp>|=|<callnum>|=|<poststamp>|=|navail|=|nunavail|=|<item1>|=|<item2>|=|... -->
+
+   <!-- Online access -->
+   <!-- <inst>|=|<url>|=|<link text> -->
+
    <!-- RDA 33x fields -->
-   <field name="content_type"           type="string"   indexed="true" stored="true" multiValued="true"/>
-   <field name="media_type"             type="string"   indexed="true" stored="true" multiValued="true"/>
-   <field name="carrier_type"           type="string"   indexed="true" stored="true" multiValued="true"/>
-   <field name="content_type_display"   type="string"   indexed="false" stored="true" multiValued="true"/>
-   <field name="media_type_display"     type="string"   indexed="false" stored="true" multiValued="true"/>
-   <field name="carrier_type_display"   type="string"   indexed="false" stored="true" multiValued="true"/>
+   <field name="rda_content_type" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="rda_media_type"   type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="rda_carrier_type" type="string" indexed="true" stored="true" multiValued="true"/>
+   <!-- Other RDA 33x fields are covered by *_facet and *_display -->
    <!-- END FLO customizations -->
 
    <!-- Dynamic field definitions.  If a field name is not found, dynamicFields
@@ -591,6 +591,10 @@
         alternately, change the type="ignored" to some other type e.g. "text" if you want 
         unknown fields indexed and/or stored by default --> 
    <!--dynamicField name="*" type="ignored" multiValued="true" /-->
+
+   <!-- BEGIN FLO customizations -->
+   <dynamicField name="*_z" type="string" indexed="true" stored="true" multiValued="true" />
+   <!-- END FLO customizations -->
    
  </fields>
 
