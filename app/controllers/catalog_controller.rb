@@ -8,7 +8,8 @@ class CatalogController < ApplicationController
     ## Default parameters to send to solr for all search-like requests. See also SearchBuilder#processed_parameters
     config.default_solr_params = { 
       :qt => 'search',
-      :rows => 10 
+      :rows => 10,
+      :facet => true,
     }
     
     # solr path which will be added to solr base url before the other solr params.
@@ -55,15 +56,6 @@ class CatalogController < ApplicationController
     #
     # :show may be set to false if you don't want the facet to be drawn in the 
     # facet bar
-    # ---------------------------------------------------- BEGIN FLO customizations
-    config.add_facet_field 'doctype_facet', :label => 'Document type'
-    config.add_facet_field 'institution_facet', :label => 'Institution'
-    config.add_facet_field 'access_facet', :label => 'Availability'
-    config.add_facet_field 'rda_content_type_facet', :label => 'Content'
-    config.add_facet_field 'rda_media_type_facet', :label => 'Media'
-    config.add_facet_field 'rda_carrier_type_facet', :label => 'Carrier'
-    # ---------------------------------------------------- END FLO customizations
-    config.add_facet_field 'format', :label => 'Format'
     config.add_facet_field 'pub_date', :label => 'Publication Year', :single => true
     config.add_facet_field 'subject_topic_facet', :label => 'Topic', :limit => 20 
     config.add_facet_field 'language_facet', :label => 'Language', :limit => true 
@@ -71,14 +63,21 @@ class CatalogController < ApplicationController
     config.add_facet_field 'subject_geo_facet', :label => 'Region' 
     config.add_facet_field 'subject_era_facet', :label => 'Era'  
 
-    config.add_facet_field 'example_pivot_field', :label => 'Pivot Field', :pivot => ['format', 'language_facet']
+    # config.add_facet_field 'example_pivot_field', :label => 'Pivot Field', :pivot => ['format', 'language_facet']
 
     config.add_facet_field 'example_query_facet_field', :label => 'Publish Date', :query => {
        :years_5 => { :label => 'last 5 years', :fq => "pub_date:[#{Time.now.year - 5 } TO *]" },
        :years_10 => { :label => 'last 10 years', :fq => "pub_date:[#{Time.now.year - 10 } TO *]" },
        :years_25 => { :label => 'last 25 years', :fq => "pub_date:[#{Time.now.year - 25 } TO *]" }
     }
-
+    # ---------------------------------------------------- BEGIN FLO customizations
+    config.add_facet_field 'format',            label: 'Format',        helper_method: :render_format_value
+    config.add_facet_field 'institution',       label: 'Institution',   helper_method: :render_institution_value
+    config.add_facet_field 'access',            label: 'Availability',  helper_method: :render_access_value
+    config.add_facet_field 'rda_content_type',  label: 'Content',       helper_method: :render_rda_content_value
+    config.add_facet_field 'rda_media_type',    label: 'Media',         helper_method: :render_rda_media_value
+    config.add_facet_field 'rda_carrier_type',  label: 'Carrier',       helper_method: :render_rda_carrier_value
+    # ---------------------------------------------------- END FLO customizations
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
@@ -91,35 +90,27 @@ class CatalogController < ApplicationController
     config.add_index_field 'title_vern_display', :label => 'Title'
     config.add_index_field 'author_display', :label => 'Author'
     config.add_index_field 'author_vern_display', :label => 'Author'
-    config.add_index_field 'format', :label => 'Format'
     config.add_index_field 'language_facet', :label => 'Language'
     config.add_index_field 'published_display', :label => 'Published'
     config.add_index_field 'published_vern_display', :label => 'Published'
     config.add_index_field 'lc_callnum_display', :label => 'Call number'
     # ---------------------------------------------------- BEGIN FLO customizations
-    config.add_index_field 'lib', :label => 'Library holdings'
-    config.add_index_field 'onl', :label => 'Online access'
-    config.add_index_field 'course_display', :label => 'Course'
-    config.add_index_field 'instructor_display', :label => 'Instructor'
-    config.add_index_field 'institution_display', :label => 'Institution'
-    config.add_index_field 'department_display', :label => 'Department'
+    config.add_index_field 'format', :label => 'Format', helper_method: :render_format_value_list
+    config.add_index_field 'lib',                   label: 'Library holdings'
+    config.add_index_field 'onl',                   label: 'Online access'
+    config.add_index_field 'course_display',        label: 'Course'
+    config.add_index_field 'instructor_display',    label: 'Instructor'
+    config.add_index_field 'department_display',    label: 'Department'
     # ---------------------------------------------------- END FLO customizations
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display 
-    # ---------------------------------------------------- BEGIN FLO customizations
-    config.add_show_field 'course_display', :label => 'Course'
-    config.add_show_field 'instructor_display', :label => 'Instructor'
-    config.add_show_field 'institution_display', :label => 'Institution'
-    config.add_show_field 'department_display', :label => 'Department'
-    # ---------------------------------------------------- END FLO customizations
     config.add_show_field 'title_display', :label => 'Title'
     config.add_show_field 'title_vern_display', :label => 'Title'
     config.add_show_field 'subtitle_display', :label => 'Subtitle'
     config.add_show_field 'subtitle_vern_display', :label => 'Subtitle'
     config.add_show_field 'author_display', :label => 'Author'
     config.add_show_field 'author_vern_display', :label => 'Author'
-    config.add_show_field 'format', :label => 'Format'
     config.add_show_field 'url_fulltext_display', :label => 'URL'
     config.add_show_field 'url_suppl_display', :label => 'More Information'
     config.add_show_field 'language_facet', :label => 'Language'
@@ -127,11 +118,15 @@ class CatalogController < ApplicationController
     config.add_show_field 'published_vern_display', :label => 'Published'
     config.add_show_field 'lc_callnum_display', :label => 'Call number'
     config.add_show_field 'isbn_t', :label => 'ISBN'
-
     # ---------------------------------------------------- BEGIN FLO customizations
-    config.add_show_field 'poem_display', :label => 'Poem'
-    config.add_show_field 'lib', :label => 'Library holdings'
-    config.add_show_field 'onl', :label => 'Online access'
+    config.add_show_field 'format', :label => 'Format', helper_method: :render_format_value_list
+    config.add_show_field 'course_display',         label: 'Course'
+    config.add_show_field 'instructor_display',     label: 'Instructor'
+    config.add_show_field 'institution_display',    label: 'Institution'
+    config.add_show_field 'department_display',     label: 'Department'
+    config.add_show_field 'poem_display',           label: 'Poem'
+    config.add_show_field 'lib',                    label: 'Library holdings'
+    config.add_show_field 'onl',                    label: 'Online access'
     # ---------------------------------------------------- END FLO customizations
 
     # "fielded" search configuration. Used by pulldown among other places.
