@@ -524,24 +524,24 @@
    we use 'tint' for faster range-queries. -->
    <field name="pub_date_sort" type="tint" indexed="true" stored="true" multiValued="false"/>
      
-   <!-- format is used for facet, display, and choosing which partial to use for the show view, so it must be stored and indexed -->
-   <field name="format" type="string" indexed="true" stored="true"/>
-   
    <!-- BEGIN FLO customizations -->
+   <field name="doctype" type="string" indexed="true" stored="true"/>
+   <!-- BEGIN modified from default -->
+   <!-- format is used for facet, display, and choosing which partial to use for the show view, so it must be stored and indexed -->
+   <field name="format" type="string" indexed="true" stored="true" multiValued="true"/>
+   <!-- END modified from default -->
+   
+   <!-- Institution, location, etc. -->
+   <field name="institution" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="access" type="string" indexed="true" stored="true"/>
+   <field name="location" type="string" indexed="true" stored="true" multiValued="true"/>
+   <!-- Holdings/access -->
    <field name="lib" type="string" indexed="false" stored="true" multiValued="true"/>
    <field name="onl" type="string" indexed="false" stored="true" multiValued="true"/>
-
-   <!-- Holdings in libraries -->
-   <!-- <inst>|=|<loc>|=|<prestamp>|=|<callnum>|=|<poststamp>|=|navail|=|nunavail|=|<item1>|=|<item2>|=|... -->
-
-   <!-- Online access -->
-   <!-- <inst>|=|<url>|=|<link text> -->
-
    <!-- RDA 33x fields -->
    <field name="rda_content_type" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="rda_media_type"   type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="rda_carrier_type" type="string" indexed="true" stored="true" multiValued="true"/>
-   <!-- Other RDA 33x fields are covered by *_facet and *_display -->
    <!-- END FLO customizations -->
 
    <!-- Dynamic field definitions.  If a field name is not found, dynamicFields
@@ -614,6 +614,12 @@
         or to add multiple fields to the same field for easier/faster searching.  -->
    <!-- Copy Fields -->
         
+   <!-- BEGIN FLO customizations -->
+   <copyField source="author_display" dest="text"/>
+   <copyField source="title_display" dest="text"/>
+   <copyField source="published_display" dest="text"/>
+   <!-- END FLO customizations -->
+
    <!-- unstemmed fields -->
    <copyField source="title_t" dest="title_unstem_search"/>
    <copyField source="subtitle_t" dest="subtitle_unstem_search"/>
