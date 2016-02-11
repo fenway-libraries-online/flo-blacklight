@@ -532,7 +532,6 @@
    <!-- END modified from default -->
    
    <!-- Institution, location, etc. -->
-   <field name="institution" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="access" type="string" indexed="true" stored="true"/>
    <field name="location" type="string" indexed="true" stored="true" multiValued="true"/>
    <!-- Holdings/access -->
@@ -618,6 +617,9 @@
    <copyField source="author_display" dest="text"/>
    <copyField source="title_display" dest="text"/>
    <copyField source="published_display" dest="text"/>
+   <copyField source="author_display" dest="author_t"/>
+   <copyField source="title_display" dest="title_t"/>
+   <copyField source="published_display" dest="published_t"/>
    <!-- END FLO customizations -->
 
    <!-- unstemmed fields -->
