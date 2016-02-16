@@ -31,11 +31,11 @@ class CatalogController < ApplicationController
 
     # solr field configuration for search results/index views
     config.index.title_field = 'title_display'
-    config.index.display_type_field = 'format'
+    config.index.display_type_field = 'doctype'
 
     # solr field configuration for document/show views
-    #config.show.title_field = 'title_display'
-    #config.show.display_type_field = 'format'
+    config.show.title_field = 'title_display'
+    config.show.display_type_field = 'doctype'
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
@@ -72,7 +72,7 @@ class CatalogController < ApplicationController
     }
     # ---------------------------------------------------- BEGIN FLO customizations
     config.add_facet_field 'format',            label: 'Format',        helper_method: :render_format_value
-    config.add_facet_field 'institution',       label: 'Institution',   helper_method: :render_institution_value
+    config.add_facet_field 'inst_z',            label: 'Institution',   helper_method: :render_institution_value
     config.add_facet_field 'access',            label: 'Availability',  helper_method: :render_access_value
     config.add_facet_field 'rda_content_type',  label: 'Content',       helper_method: :render_rda_content_value
     config.add_facet_field 'rda_media_type',    label: 'Media',         helper_method: :render_rda_media_value
@@ -122,7 +122,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'format', :label => 'Format', helper_method: :render_format_value_list
     config.add_show_field 'course_display',         label: 'Course'
     config.add_show_field 'instructor_display',     label: 'Instructor'
-    config.add_show_field 'institution_display',    label: 'Institution'
+    config.add_show_field 'inst_z',                 label: 'Institution', helper_method: :render_institution_value_list
     config.add_show_field 'department_display',     label: 'Department'
     config.add_show_field 'poem_display',           label: 'Poem'
     config.add_show_field 'lib',                    label: 'Library holdings'
