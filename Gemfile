@@ -53,6 +53,8 @@ gem "devise"
 gem "devise-guests", "~> 0.3"
 gem "blacklight-marc", "~> 5.0"
 
+gem "haml"
+
 group :development, :test do
     gem 'byebug'
 end
