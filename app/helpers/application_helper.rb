@@ -136,6 +136,33 @@ module ApplicationHelper
     "vz" => "Other",
     "zu" => "Unspecified",
   }
+  @@item_status_map ||= [
+    "Not checked out",
+    "Charged",
+    "Renewed",
+    "Overdue",
+    "Recall Request",
+    "Hold Request",
+    "On Hold",
+    "In Transit",
+    "In Transit Discharged",
+    "In Transit On Hold",
+    "Discharged",
+    "Missing",
+    "Lost--Library Applied",
+    "Lost--System Applied",
+    "Claims Returned",
+    "Damaged",
+    "Withdrawn",
+    "At Bindery",
+    "Cataloging Review",
+    "Circulation Review",
+    "Scheduled",
+    "In Process",
+    "Call Slip Request",
+    "Short Loan Request",
+    "Remote Storage Request",
+  ]
   
   # Render coded fields for view and show using the above mappings
   def render_format_value_list(vals)      vals[:value].map { |v| @@format_map[v]      || v } end
@@ -152,6 +179,9 @@ module ApplicationHelper
   def render_rda_content_value(val) @@rda_content_map[val] || val end
   def render_rda_media_value(val)   @@rda_media_map[val]   || val end
   def render_rda_carrier_value(val) @@rda_carrier_map[val] || val end
+
+  # Other mappings
+  def render_item_status_value(val) @@item_status_map[val] || val end
 
   def read_location_map(f)
     begin
