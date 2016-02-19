@@ -10,24 +10,34 @@ items = value["items"]
 %>
 <%
 case avail
-when 'all'  %><img width="12" height="12" src="/images/available.png"/><%
-when 'some' %><img width="12" height="12" src="/images/some_available.png"/><%
-when 'none' %><img width="12" height="12" src="/images/unavailable.png"/><%
-else        %><img width="12" height="12" src="/images/unknown.png"/><%
+  when 'all'  %><img width="12" height="12" src="/images/available.png"/><%
+  when 'some' %><img width="12" height="12" src="/images/some_available.png"/><%
+  when 'none' %><img width="12" height="12" src="/images/unavailable.png"/><%
+  else        %><img width="12" height="12" src="/images/unknown.png"/><%
 end
 %>
 <!-- available: <%= avail %> -->
 <% if loc %><b><%= render_location_value(loc) %></b><% end %>
 <% if cnum %><%= cnum %><% end %>
 <%
-if false
-  %><i>Temporarily at</i>&nbsp;<%= render_location_value(tloc) %><%
-end
 case avail
-when 'all'  %><i>Available</i><%
-when 'some' %><i>Available in part</i><%
-when 'none' %><i>Unavailable</i><%
-else        %><i>Availability unknown</i><%
+  when 'all'  %><i>Available</i><%
+  when 'some' %><i>Available in part</i><%
+  when 'none' %><i>Unavailable</i><%
+  else        %><i>Availability unknown</i><%
+end
+items.each do |item|
+  tloc = item["temp_loc"]
+  stat = item["status"]
+  if tloc %>
+<br/>Temporarily at <%= render_location_value(tloc) %>
+<%
+  end
+  if stat %>
+  <!-- status: <%= stat %> -->
+<br/><%= render_item_status_value(stat) %>
+<%
+  end
 end
 %>
 
