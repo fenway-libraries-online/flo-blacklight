@@ -29,13 +29,13 @@ end
 items.each do |item|
   tloc = item["temp_loc"]
   stat = item["status"]
-  if tloc %>
-<br/>Temporarily at <%= render_location_value(tloc) %>
+  if tloc and tloc != loc %>
+<br/><span style="padding-left: 2em"><img width="12" height="12" src="/images/temploc.png"/>Temporarily at <b><%= render_location_value(tloc) %></b></span>
 <%
   end
-  if stat %>
-  <!-- status: <%= stat %> -->
-<br/><%= render_item_status_value(stat) %>
+  if stat and stat != 1
+%>
+<br/><span class="item-status" style="margin-left: 2.5em"><%= render_item_status(item) %></span>
 <%
   end
 end

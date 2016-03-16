@@ -1,11 +1,15 @@
 Blacklight::Application.routes.draw do
+  #get 'reserves/index'
+
   Blacklight::Marc.add_routes(self)
   root to: "catalog#index"
   blacklight_for :catalog
   devise_for :users
 
+  ### get 'reserves', to: 'catalog#reserves', as: :reserves_index
+
   # The reserves controller
-  resources :reserves, only: [:index, :show]
+  resources :reserves, only: [:index, :show]  ### , defaults: { layout: 'reserves' }
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

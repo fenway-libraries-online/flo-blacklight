@@ -4,14 +4,40 @@ class CatalogController < ApplicationController
 
   include Blacklight::Catalog
 
+  before_filter :by_collection_config
+
+  def by_collection_config
+    @active_collection = determine_active_collection
+  end
+
+  def determine_active_collection
+    return 'catalog'
+    active_collection_from_params = params['coll']
+    if active_collection_from_params
+      active_collection_from_params.underscore
+    else
+      path_minus_advanced = request.path.to_s.gsub(/^\/advanced/, '')
+      case path_minus_advanced
+      when /^\/reserves/
+        'reserves'
+      else
+        'catalog'
+      end
+    end
+  end
+
   configure_blacklight do |config|
     ## Default parameters to send to solr for all search-like requests. See also SearchBuilder#processed_parameters
     config.default_solr_params = { 
-      :qt => 'search',
-      :rows => 10,
-      :facet => true,
+      qt: 'search',
+      rows: 10,
+      facet: true,
+      fq: [],
     }
     
+    #byebug
+    search_params_logic.delete(:reserves_filter)
+
     # solr path which will be added to solr base url before the other solr params.
     #config.solr_path = 'select' 
     
@@ -98,9 +124,9 @@ class CatalogController < ApplicationController
     config.add_index_field 'format', :label => 'Format', helper_method: :render_format_value_list
     config.add_index_field 'lib',                   label: 'Library holdings'
     config.add_index_field 'onl',                   label: 'Online access'
-    config.add_index_field 'course_display',        label: 'Course'
-    config.add_index_field 'instructor_display',    label: 'Instructor'
-    config.add_index_field 'department_display',    label: 'Department'
+    #config.add_index_field 'course_display',        label: 'Course'
+    #config.add_index_field 'instructor_display',    label: 'Instructor'
+    #config.add_index_field 'department_display',    label: 'Department'
     # ---------------------------------------------------- END FLO customizations
 
     # solr fields to be displayed in the show (single result) view
@@ -120,10 +146,10 @@ class CatalogController < ApplicationController
     config.add_show_field 'isbn_t', :label => 'ISBN'
     # ---------------------------------------------------- BEGIN FLO customizations
     config.add_show_field 'format', :label => 'Format', helper_method: :render_format_value_list
-    config.add_show_field 'course_display',         label: 'Course'
-    config.add_show_field 'instructor_display',     label: 'Instructor'
+    #config.add_show_field 'course_display',         label: 'Course'
+    #config.add_show_field 'instructor_display',     label: 'Instructor'
+    #config.add_show_field 'department_display',     label: 'Department'
     config.add_show_field 'inst_z',                 label: 'Institution', helper_method: :render_institution_value_list
-    config.add_show_field 'department_display',     label: 'Department'
     config.add_show_field 'poem_display',           label: 'Poem'
     config.add_show_field 'lib',                    label: 'Library holdings'
     config.add_show_field 'onl',                    label: 'Online access'

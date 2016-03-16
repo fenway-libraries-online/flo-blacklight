@@ -26,6 +26,7 @@ module ApplicationHelper
     "ecl" => "Emerson College",
     "emc" => "Emmanuel College",
     "flo" => "All of FLO",
+    "aib" => "Lesley University",
     "les" => "Lesley University",
     "mca" => "MassArt",
     "mcp" => "MCPHS",
@@ -137,6 +138,7 @@ module ApplicationHelper
     "zu" => "Unspecified",
   }
   @@item_status_map ||= [
+    nil,
     "Not checked out",
     "Charged",
     "Renewed",
@@ -149,8 +151,8 @@ module ApplicationHelper
     "In Transit On Hold",
     "Discharged",
     "Missing",
-    "Lost--Library Applied",
-    "Lost--System Applied",
+    "Lost",  ### "Lost--Library Applied",
+    "Lost",  ### "Lost--System Applied",
     "Claims Returned",
     "Damaged",
     "Withdrawn",
@@ -181,7 +183,23 @@ module ApplicationHelper
   def render_rda_carrier_value(val) @@rda_carrier_map[val] || val end
 
   # Other mappings
-  def render_item_status_value(val) @@item_status_map[val] || val end
+  def render_item_status(item)
+    copy  = item['copy']
+    stat  = item['status']
+    sdate = item['status_date']
+    due   = item['due_date']
+    if stat.class != Array
+      stat = [stat]
+    end
+    str = if copy.nil? then '' else "c.#{copy} " end
+    str += stat.map{ |s| @@item_status_map[s.to_i] }.join(", ")
+    if !due.nil?
+      str += " (due #{due['m']}-#{due['d']}-#{due['Y']})"
+    elsif !sdate.nil?
+      ### Do something with the status date
+    end
+    return str
+  end
 
   def read_location_map(f)
     begin

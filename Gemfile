@@ -54,6 +54,7 @@ gem "devise-guests", "~> 0.3"
 gem "blacklight-marc", "~> 5.0"
 
 gem "haml"
+gem "haml-rails"
 
 group :development, :test do
     gem 'byebug'
