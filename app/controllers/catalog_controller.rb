@@ -4,28 +4,6 @@ class CatalogController < ApplicationController
 
   include Blacklight::Catalog
 
-  before_filter :by_collection_config
-
-  def by_collection_config
-    @active_collection = determine_active_collection
-  end
-
-  def determine_active_collection
-    return 'catalog'
-    active_collection_from_params = params['coll']
-    if active_collection_from_params
-      active_collection_from_params.underscore
-    else
-      path_minus_advanced = request.path.to_s.gsub(/^\/advanced/, '')
-      case path_minus_advanced
-      when /^\/reserves/
-        'reserves'
-      else
-        'catalog'
-      end
-    end
-  end
-
   configure_blacklight do |config|
     ## Default parameters to send to solr for all search-like requests. See also SearchBuilder#processed_parameters
     config.default_solr_params = { 
@@ -36,7 +14,6 @@ class CatalogController < ApplicationController
     }
     
     #byebug
-    search_params_logic.delete(:reserves_filter)
 
     # solr path which will be added to solr base url before the other solr params.
     #config.solr_path = 'select' 

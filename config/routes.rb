@@ -5,6 +5,9 @@ Blacklight::Application.routes.draw do
   blacklight_for :catalog
   devise_for :users
 
+  # get 'reserves' => '/reserves.html'
+  # get 'reserves/:id' => 'catalog#purchase', as: :purchase
+
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
