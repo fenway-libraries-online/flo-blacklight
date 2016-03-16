@@ -17,6 +17,7 @@
 /tmp
 /log
 /Gemfile.lock
+/jetty/logs
 /jetty/webapps
 /jetty/solr-webapp
 /jetty/solr/blacklight-core/data
