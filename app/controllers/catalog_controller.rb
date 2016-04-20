@@ -4,6 +4,10 @@ class CatalogController < ApplicationController
 
   include Blacklight::Catalog
 
+  def foo
+    partial
+  end
+
   configure_blacklight do |config|
     ## Default parameters to send to solr for all search-like requests. See also SearchBuilder#processed_parameters
     config.default_solr_params = { 
@@ -74,8 +78,11 @@ class CatalogController < ApplicationController
        :years_25 => { :label => 'last 25 years', :fq => "pub_date:[#{Time.now.year - 25 } TO *]" }
     }
     # ---------------------------------------------------- BEGIN FLO customizations
-    config.add_facet_field 'format',            label: 'Format',        helper_method: :render_format_value
-    config.add_facet_field 'inst_z',            label: 'Institution',   helper_method: :render_institution_value
+    config.add_facet_field 'doctype',           label: 'Collection',    helper_method: :render_doctype_value, limit: true, collapse: false
+    config.add_facet_field 'format',            label: 'Format',        helper_method: :render_format_value, limit: true
+    config.add_facet_field 'inst_z',            label: 'Institution',   helper_method: :render_institution_value, limit: 20
+    config.add_facet_field 'department_facet',  label: 'Department', limit: true
+    config.add_facet_field 'instructor_facet',  label: 'Instructor', limit: true
     config.add_facet_field 'access',            label: 'Availability',  helper_method: :render_access_value
     config.add_facet_field 'rda_content_type',  label: 'Content',       helper_method: :render_rda_content_value
     config.add_facet_field 'rda_media_type',    label: 'Media',         helper_method: :render_rda_media_value
@@ -101,9 +108,9 @@ class CatalogController < ApplicationController
     config.add_index_field 'format', :label => 'Format', helper_method: :render_format_value_list
     config.add_index_field 'lib',                   label: 'Library holdings'
     config.add_index_field 'onl',                   label: 'Online access'
-    #config.add_index_field 'course_display',        label: 'Course'
-    #config.add_index_field 'instructor_display',    label: 'Instructor'
-    #config.add_index_field 'department_display',    label: 'Department'
+    config.add_index_field 'course_display',        label: 'Course'
+    config.add_index_field 'instructor_display',    label: 'Instructor'
+    config.add_index_field 'department_display',    label: 'Department'
     # ---------------------------------------------------- END FLO customizations
 
     # solr fields to be displayed in the show (single result) view
@@ -123,10 +130,10 @@ class CatalogController < ApplicationController
     config.add_show_field 'isbn_t', :label => 'ISBN'
     # ---------------------------------------------------- BEGIN FLO customizations
     config.add_show_field 'format', :label => 'Format', helper_method: :render_format_value_list
-    #config.add_show_field 'course_display',         label: 'Course'
-    #config.add_show_field 'instructor_display',     label: 'Instructor'
-    #config.add_show_field 'department_display',     label: 'Department'
+    config.add_show_field 'course_display',         label: 'Course'
     config.add_show_field 'inst_z',                 label: 'Institution', helper_method: :render_institution_value_list
+    config.add_show_field 'instructor_display',     label: 'Instructor'
+    config.add_show_field 'department_display',     label: 'Department'
     config.add_show_field 'poem_display',           label: 'Poem'
     config.add_show_field 'lib',                    label: 'Library holdings'
     config.add_show_field 'onl',                    label: 'Online access'

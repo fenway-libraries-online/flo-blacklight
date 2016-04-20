@@ -215,6 +215,10 @@
          <!-- BEGIN FLO customizations -->
          institution_facet,
          access_facet,
+         course_display,
+         department_display,
+         instructor_display,
+         doctype,
          <!-- END FLO customizations -->
        </str>
 

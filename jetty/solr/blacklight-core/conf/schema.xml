@@ -508,6 +508,7 @@
         <dynamicField name="*_sort" type="alphaOnlySort" indexed="true" stored="false" multiValued="false" />
         <!-- BEGIN FLO customizations -->
         <dynamicField name="*_z" type="string" indexed="true" stored="true" multiValued="true" />
+        <dynamicField name="contents_note" type="text_general" indexed="true" stored="false" multiValued="true" />
         <!-- END FLO customizations -->
     </fields>
     <uniqueKey>id</uniqueKey>
@@ -515,5 +516,8 @@
     <solrQueryParser defaultOperator="OR"/>
     <!-- BEGIN FLO customizations -->
     <copyField source="*_display" dest="text"/>
+    <copyField source="department_display" dest="department_facet"/>
+    <copyField source="instructor_display" dest="instructor_facet"/>
+    <copyField source="contents_note" dest="text"/>
     <!-- END FLO customizations -->
 </schema>
