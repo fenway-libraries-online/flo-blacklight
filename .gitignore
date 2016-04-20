@@ -26,3 +26,10 @@
 doc
 *~
 inbox
+
+# Mock-ups and such
+/public/wheelock-reserves
+/public/cres.html
+
+# Blacklight-jetty code
+/jetty/lib
