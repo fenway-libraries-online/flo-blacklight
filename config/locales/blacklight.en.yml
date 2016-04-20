@@ -1,3 +1,7 @@
 en:
   blacklight:
     application_name: 'Blacklight'
+    welcome: 'Welcome to Blacklight'
+    search:
+      facets:
+        title: Search limits
