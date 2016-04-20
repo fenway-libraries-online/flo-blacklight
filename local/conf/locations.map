@@ -84,19 +84,19 @@ EDS-STACKS Lesley/EDS-Sherrill Library Main Stacks
 EMC-CAT Emmanuel Cataloging Desk
 EMCACQ Emmanuel Acquisitions
 EMCARC Emmanuel Archives
-EMCAUTH 
+EMCAUTH Emmanuel Authors
 EMCB Special Collections Emmanuel Room
 EMCBIND Emmanuel Bindery
 EMCCD Emmanuel CDROM
 EMCCFIC Emmanuel Catholic Literature
 EMCCIRC Emmanuel Circulation
 EMCDIR Emmanuel Director's Office
-EMCDISP 
+EMCDISP Emmanuel Display
 EMCDNU Emmanuel Do Not Use
 EMCFFIC Emmanuel Foreign Literature
 EMCILL Emmanuel Interlibrary Loan
 EMCINDEX Emmanuel Index
-EMCJSTOR 
+EMCJSTOR Emmanuel JSTOR
 EMCJSTORPU Emmanuel JSTOR
 EMCJUV Emmanuel Juvenile
 EMCLEIS Emmanuel Leisure
@@ -118,12 +118,12 @@ EMCTECH Emmanuel Technical Services
 EMCTVC EMC Test VC Loc
 EMCVC Emmanuel Virtual Catalog
 EMCVIDEO Emmanuel Video
-FLO-CREDO available online (Credo Reference Premium)
-FLO-EBL available online (EBL)
-FLO-EBRARY available online (Ebrary)
+FLO-CREDO Online (Credo Reference Premium)
+FLO-EBL Online (EBL)
+FLO-EBRARY Online (Ebrary)
 FLO-EXCEPT 
-FLO-MLSEBL available online (EBL)
-FLO-ONLINE freely available online
+FLO-MLSEBL Online (EBL)
+FLO-ONLINE Freely available online
 FLOCIRC FLO Circ Happening
 FLODNU FLO Do Not Use
 FLOPIC -Choose a pickup location (REQUIRED)
