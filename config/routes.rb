@@ -5,6 +5,9 @@ Blacklight::Application.routes.draw do
   blacklight_for :catalog
   devise_for :users
 
+  get 'reserves', to: redirect('/?q=&f[doctype][]=cres')
+  get 'reserves/:inst', to: redirect('/?q=&f[doctype][]=cres&f[inst_z][]=%{inst}')
+
   # get 'reserves' => '/reserves.html'
   # get 'reserves/:id' => 'catalog#purchase', as: :purchase
 
