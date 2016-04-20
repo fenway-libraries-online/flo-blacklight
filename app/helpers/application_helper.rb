@@ -1,5 +1,9 @@
 module ApplicationHelper
   # Mappings for display and faceting
+  @@doctype_map ||= {
+    "bib" => "Catalog",
+    "cres" => "Course reserves",
+  }
   @@format_map ||= {
     "bk"  => "Book",
     "ser" => "Journal or newspaper",
@@ -19,7 +23,7 @@ module ApplicationHelper
     "tac" => "Tactile",
     "vid" => "Video",
     "xxx" => "Other/unknown",
-    'cres' => "Course",
+    'cres' => "Course reserve list",
   }
   @@institution_map ||= {
     "eds" => "Episcopal Divinity School",
@@ -36,6 +40,7 @@ module ApplicationHelper
     "smfa"=> "School of the MFA",
     "whe" => "Wheelock College",
     "wit" => "Wentworth Institute of Technology",
+    "wor" => "MCPHS (Worcester)",
   }
   @@access_map ||= {
     "onl" => "Online",
@@ -167,6 +172,7 @@ module ApplicationHelper
   ]
   
   # Render coded fields for view and show using the above mappings
+  def render_doctype_value_list(vals)     vals[:value].map { |v| @@doctype_map[v]     || v } end
   def render_format_value_list(vals)      vals[:value].map { |v| @@format_map[v]      || v } end
   def render_institution_value_list(vals) vals[:value].map { |v| @@institution_map[v] || v } end
   def render_access_value_list(vals)      vals[:value].map { |v| @@access_map[v]      || v } end
@@ -175,6 +181,7 @@ module ApplicationHelper
   def render_rda_carrier_value_list(vals) vals[:value].map { |v| @@rda_carrier_map[v] || v } end
 
   # Ditto for faceting
+  def render_doctype_value(val)     @@doctype_map[val]     || val end
   def render_format_value(val)      @@format_map[val]      || val end
   def render_institution_value(val) @@institution_map[val] || val end
   def render_access_value(val)      @@access_map[val]      || val end
@@ -307,19 +314,19 @@ module ApplicationHelper
     "EMC-CAT" => "Emmanuel Cataloging Desk",
     "EMCACQ" => "Emmanuel Acquisitions",
     "EMCARC" => "Emmanuel Archives",
-    "EMCAUTH" => "",
+    "EMCAUTH" => "Emmanuel Authors",
     "EMCB" => "Special Collections Emmanuel Room",
     "EMCBIND" => "Emmanuel Bindery",
     "EMCCD" => "Emmanuel CDROM",
     "EMCCFIC" => "Emmanuel Catholic Literature",
     "EMCCIRC" => "Emmanuel Circulation",
     "EMCDIR" => "Emmanuel Director's Office",
-    "EMCDISP" => "",
+    "EMCDISP" => "Emmanuel Display",
     "EMCDNU" => "Emmanuel Do Not Use",
     "EMCFFIC" => "Emmanuel Foreign Literature",
     "EMCILL" => "Emmanuel Interlibrary Loan",
     "EMCINDEX" => "Emmanuel Index",
-    "EMCJSTOR" => "",
+    "EMCJSTOR" => "Emmanuel JSTOR",
     "EMCJSTORPU" => "Emmanuel JSTOR",
     "EMCJUV" => "Emmanuel Juvenile",
     "EMCLEIS" => "Emmanuel Leisure",
