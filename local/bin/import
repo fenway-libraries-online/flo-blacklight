@@ -1,6 +1,5 @@
 #!/bin/zsh
 
-typeset url='http://localhost:8983/solr/blacklight-core/update?commit=true'
 typeset PROG=$0
 typeset quiet=false
 
@@ -9,26 +8,28 @@ main() {
         cd $PROG:h:h:h
     fi
     [[ $PWD == ~/proj/* ]] || fatal "run this from the project directory"
-    typeset opt
-    while getopts :i:q opt; do
+    typeset opt port=8983
+    while getopts :i:qp: opt; do
         case $opt in
             (i) cat > local/inbox/$OPTARG ;;
             (q) quiet=true ;;
+            (p) port=$OPTARG ;;
             (*) usage ;;
         esac
     done
     shift $(( OPTIND - 1 ))
     (( $# > 0 )) || set -- local/inbox/*.json*(N)
     (( $# > 0 )) || fatal "no files to import"
+    typeset url="http://localhost:${port}/solr/blacklight-core/update?commit=true"
     for f in $@; do
         case $f in
             (*.json.gz)
                 blather "Processing $f ..."
-                gunzip < $f | curl -s $url -H 'Content-type:application/json' --data-binary @- | tee /tmp/bli | report-results
+                gunzip < $f | curl -s $url -H 'Content-type: application/json' --data-binary @- | tee /tmp/bli | report-results
                 ;;
             (*.json)
                 blather "Processing $f ..."
-                curl -s $url -H 'Content-type:application/json' --data-binary @$f | tee /tmp/bli | report-results
+                curl -s $url -H 'Content-type: application/json' --data-binary @$f | tee /tmp/bli | report-results
                 ;;
             (*) fatal "unrecognized file type: $f"
                 ;;
