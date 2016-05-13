@@ -33,3 +33,5 @@ inbox
 
 # Blacklight-jetty code
 /jetty/lib
+
+/jetty.tar.gz
