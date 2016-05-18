@@ -30,7 +30,7 @@ module ApplicationHelper
     "ecl" => "Emerson College",
     "emc" => "Emmanuel College",
     "flo" => "All of FLO",
-    "aib" => "Lesley University",
+    "aib" => "Lesley University/LUCAD",
     "les" => "Lesley University",
     "mca" => "MassArt",
     "mcp" => "MCPHS",
