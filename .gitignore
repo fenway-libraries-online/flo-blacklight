@@ -25,6 +25,7 @@
 .byebug_history
 doc
 *~
+.*.swp
 inbox
 
 # Mock-ups and such
