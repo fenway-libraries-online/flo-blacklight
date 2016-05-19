@@ -20,7 +20,7 @@ document_show_fields(document).each do |field_name, field|
 end
 %>
       <dt class="blacklight-opac">Voyager:</dt>
-      <dd class="blacklight-opac"><a href="http://endeavor.flo.org/vwebv/holdingsInfo?bibId=<%= document["id"][1..-1]%>"><%= document["id"][1..-1]%></a></dd>
+      <dd class="blacklight-opac"><a target="voyager" href="http://endeavor.flo.org/vwebv/holdingsInfo?bibId=<%= document["id"][1..-1]%>"><%= document["id"][1..-1]%></a></dd>
 </dl>
 <hr/>
 <dl class="dl-horizontal dl-invert">
