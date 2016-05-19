@@ -80,9 +80,9 @@ class CatalogController < ApplicationController
     # ---------------------------------------------------- BEGIN FLO customizations
     config.add_facet_field 'doctype',           label: 'Collection',    helper_method: :render_doctype_value, limit: true, collapse: false
     config.add_facet_field 'format',            label: 'Format',        helper_method: :render_format_value, limit: true
-    config.add_facet_field 'inst_z',            label: 'Institution',   helper_method: :render_institution_value, limit: 20
-    config.add_facet_field 'department_facet',  label: 'Department', limit: true
-    config.add_facet_field 'instructor_facet',  label: 'Instructor', limit: true
+    config.add_facet_field 'inst_z',            label: 'Institution',   helper_method: :render_institution_value, limit: 20, sort: 'index'
+    config.add_facet_field 'department_facet',  label: 'Department', limit: true, sort: 'index'
+    config.add_facet_field 'instructor_facet',  label: 'Instructor', limit: true, sort: 'index'
     config.add_facet_field 'access',            label: 'Availability',  helper_method: :render_access_value
     config.add_facet_field 'rda_content_type',  label: 'Content',       helper_method: :render_rda_content_value
     config.add_facet_field 'rda_media_type',    label: 'Media',         helper_method: :render_rda_media_value
