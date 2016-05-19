@@ -189,6 +189,19 @@ module ApplicationHelper
   def render_rda_media_value(val)   @@rda_media_map[val]   || val end
   def render_rda_carrier_value(val) @@rda_carrier_map[val] || val end
 
+  def hm2time(h, m)
+      ampm = 'AM'
+      if h == '00'
+        h = '12'
+      elsif h == '12'
+        ampm = 'PM'
+      elsif h > '12'
+        ampm = 'PM'
+        h = sprintf('%02d', h.to_i - 12)
+      end
+      return "#{h}:#{m} #{ampm}"
+  end
+
   # Other mappings
   def render_item_status(item)
     copy  = item['copy']
@@ -201,7 +214,8 @@ module ApplicationHelper
     str = if copy.nil? then '' else "c.#{copy} " end
     str += stat.map{ |s| @@item_status_map[s.to_i] }.join(", ")
     if !due.nil?
-      str += " (due #{due['m']}-#{due['d']}-#{due['Y']})"
+      t = hm2time(due['H'], due['M'])
+      str += " (due #{due['m']}-#{due['d']}-#{due['Y']} at #{t})"
     elsif !sdate.nil?
       ### Do something with the status date
     end
