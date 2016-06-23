@@ -1,6 +1,14 @@
 <% if query_has_constraints? %>
 
       <div id="appliedParams" class="clearfix constraints-container">
+<%
+    fields = params[:f] || {}
+    doctype = fields[:doctype] || []
+    inst = fields[:inst_z] || []
+%>
+<% if doctype.include?('cres') %>
+        <img src="http://blacklight.flo.org/assets/cres.png" height="24" width="24" />
+<% end %>
         <!--
         <div class="pull-right">
           <%=link_to t('blacklight.search.start_over'), start_over_path, :class => "catalog_startOverLink btn btn-sm btn-text", :id=>"startOverLink" %>
@@ -8,12 +16,6 @@
         -->
         <span class="constraints-label"><%= t('blacklight.search.filters.title') %></span>
         <%= render_constraints(params) %>
-<%
-    fields = params[:f] || {}
-    doctype = fields[:doctype] || []
-    inst = fields[:inst_z] || []
-%>
-<% if doctype.include?('cres') %><!-- You are searching course reserves --><% end %>
 <% if inst.include?('whe') %><!-- You are searching Wheelock materials --><% end %>
       </div>
 <% end %>
