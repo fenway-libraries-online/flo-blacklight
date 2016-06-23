@@ -14,10 +14,11 @@ end
 items = items.sort_by { |i| i["sort_key"] }
 nitems = value["nitems_i"] || items.size
 navail = value["navail_i"] || items.count { |item| item["status"].nil? }
+# nmoved = items.count { |item| !item["temp_loc"].nil? }
 %>
 <%
 case avail
-  when 'all'  %><img style="float: left; margin-right: 3px" width="12" height="12" src="/images/available.png"/><%
+  when 'all'  %><img width="12" height="12" src="/images/available.png"/><%
   when 'some' %><img width="12" height="12" src="/images/some_available.png"/><%
   when 'none' %><img width="12" height="12" src="/images/unavailable.png"/><%
   else        %><img width="12" height="12" src="/images/unknown.png"/><%
@@ -25,7 +26,8 @@ end
 %>
 <!-- available: <%= avail %> -->
 <% if loc %><b><%= render_location_value(loc) %></b><% end %>
-<% if cnum %><br/><span style="margin-left: 2.5em"><%= cnum %></span><% end %>
+<% if cnum %><br/><span style="margin-left: 2em"><%= cnum %></span><% end %>
+&#x2013;
 <%
 case avail
   when 'all'  %><i>Available</i><%
@@ -37,11 +39,9 @@ end
 </span>
 <%
 if items.count{ |i| i["rendered_status"] != "" || ! i["temp_loc"].nil? } > 0
-  if nitems > 1
 %>
-<ol style="margin-left: 2.5em; margin-top: 0; margin-bottom: 0">
+<ol style="margin-left: 2em; margin-top: 0; margin-bottom: 0">
 <%
-  end
   items.each do |item|
     tloc = item["temp_loc"]
     stat = item["status"]
@@ -52,11 +52,9 @@ if items.count{ |i| i["rendered_status"] != "" || ! i["temp_loc"].nil? } > 0
 <%
     end
     if stat.nil?
-      if navail != nitems
 %>
 Available
 <%
-      end
     else
 %>
 <span class="item-status"><%= item["rendered_status"] %></span>
@@ -71,17 +69,16 @@ Available
       cres.uniq.each do |c|
         if !c['title'].nil?
 %>
-        <br/><span style="padding-left: 2em">On reserve for</span> <a href="/catalog/<%= c['id'] %>"><%= c['title'] %></a> 
+<br/>
+        On reserve for</span> <a href="/catalog/<%= c['id'] %>"><%= c['title'] %></a>
 <%
         end
       end
     end
   end
-  if nitems > 1
 %>
 </ol>
 <%
-  end
 end
 %>
 
