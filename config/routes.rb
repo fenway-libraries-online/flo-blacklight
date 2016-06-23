@@ -6,7 +6,6 @@ Blacklight::Application.routes.draw do
   devise_for :users
 
   get 'reserves', to: redirect('/?q=&f[doctype][]=cres')
-  get 'reserves/ecl', to: redirect('/?q=&f[doctype][]=cres&f[inst_z][]=eme')
   get 'reserves/:inst', to: redirect('/?q=&f[doctype][]=cres&f[inst_z][]=%{inst}')
 
   # get 'reserves' => '/reserves.html'
