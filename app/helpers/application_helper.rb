@@ -26,13 +26,13 @@ module ApplicationHelper
     'cres' => "Course reserve list",
   }
   @@institution_map ||= {
-    "eme" => "Emerson College",
-    "emm" => "Emmanuel College",
+    "ecl" => "Emerson College",
+    "emc" => "Emmanuel College",
     "epi" => "Episcopal Divinity School",
     "flo" => "FLO (all libraries)",
     "les" => "Lesley/EDS Sherrill",
     "luc" => "Lesley Moriarty",
-    "mas" => "MassArt",
+    "mca" => "MassArt",
     "mcp" => "MCPHS",
     "mcw" => "MCPHS (Worcester)",
     "mfa" => "Museum of Fine Arts",
@@ -41,13 +41,14 @@ module ApplicationHelper
     "smfa"=> "School of the MFA",
     "wen" => "Wentworth Institute of Technology",
     "whe" => "Wheelock College",
-    # Legacy
+    # Legacy and deprecated
     "eds" => "Episcopal Divinity School",
-    "ecl" => "Emerson College",
-    "emc" => "Emmanuel College",
+    "eme" => "Emerson College",
+    "emm" => "Emmanuel College",
     "aib" => "Lesley Moriarty",
     "wor" => "MCPHS (Worcester)",
     "wit" => "Wentworth Institute of Technology",
+    "mas" => "MassArt",
   }
   @@access_map ||= {
     "onl" => "Online",
@@ -215,10 +216,13 @@ module ApplicationHelper
     stat  = item['status']
     sdate = item['status_date']
     due   = item['due_date']
-    if stat.class != Array
+    if stat.nil?
+      return ''
+    elsif stat.class != Array
       stat = [stat]
     end
-    str = if copy.nil? then '' else "c.#{copy} " end
+    str = ""
+    # str = if copy.nil? then '' else "c.#{copy} " end
     str += stat.map{ |s| @@item_status_map[s.to_i] }.join(", ")
     if !due.nil?
       t = hm2time(due['H'], due['M'])
