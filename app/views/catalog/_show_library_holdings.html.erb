@@ -7,10 +7,17 @@ loc   = value["loc"]
 cnum  = value["cnum"]
 avail = value["avail_s"] || 'unknown'
 items = value["items"]
+items.each do |item|
+  item["rendered_status"] = render_item_status(item)
+  item["sort_key"] = item["rendered_status"] + "@" + (item["temp_loc"] || "000")
+end
+items = items.sort_by { |i| i["sort_key"] }
+nitems = value["nitems_i"] || items.size
+navail = value["navail_i"] || items.count { |item| item["status"].nil? }
 %>
 <%
 case avail
-  when 'all'  %><img width="12" height="12" src="/images/available.png"/><%
+  when 'all'  %><img style="float: left; margin-right: 3px" width="12" height="12" src="/images/available.png"/><%
   when 'some' %><img width="12" height="12" src="/images/some_available.png"/><%
   when 'none' %><img width="12" height="12" src="/images/unavailable.png"/><%
   else        %><img width="12" height="12" src="/images/unknown.png"/><%
@@ -18,35 +25,62 @@ end
 %>
 <!-- available: <%= avail %> -->
 <% if loc %><b><%= render_location_value(loc) %></b><% end %>
-<% if cnum %><%= cnum %><% end %>
+<% if cnum %><br/><span style="margin-left: 2.5em"><%= cnum %></span><% end %>
 <%
 case avail
   when 'all'  %><i>Available</i><%
-  when 'some' %><i>Available in part</i><%
+  when 'some' %><i><%= navail %> of <%= nitems %> available</i><%
   when 'none' %><i>Unavailable</i><%
   else        %><i>Availability unknown</i><%
 end
-items.each do |item|
-  tloc = item["temp_loc"]
-  stat = item["status"]
-  cres = item["reserves"]
-  if tloc and tloc != loc %>
-<br/><span style="margin-left: 2em"><img width="12" height="12" src="/images/temploc.png"/>Temporarily at <b><%= render_location_value(tloc) %></b></span>
-<%
-  end
-  if stat and stat != 1
 %>
-<br/><span class="item-status" style="margin-left: 2em"><%= render_item_status(item) %></span>
+</span>
+<%
+if items.count{ |i| i["rendered_status"] != "" || ! i["temp_loc"].nil? } > 0
+  if nitems > 1
+%>
+<ol style="margin-left: 2.5em; margin-top: 0; margin-bottom: 0">
 <%
   end
-  if cres and cres.size
-    cres.uniq.each do |c|
-      if !c['title'].nil?
+  items.each do |item|
+    tloc = item["temp_loc"]
+    stat = item["status"]
+    cres = item["reserves"]
+    if nitems > 1
+%>
+<li>
+<%
+    end
+    if stat.nil?
+      if navail != nitems
+%>
+Available
+<%
+      end
+    else
+%>
+<span class="item-status"><%= item["rendered_status"] %></span>
+<%
+    end
+    if tloc and tloc != loc
+%>
+<img width="12" height="12" src="/images/temploc.png"/>Temporarily at <b><%= render_location_value(tloc) %></b>
+<%
+    end
+    if cres and cres.size
+      cres.uniq.each do |c|
+        if !c['title'].nil?
 %>
         <br/><span style="padding-left: 2em">On reserve for</span> <a href="/catalog/<%= c['id'] %>"><%= c['title'] %></a> 
 <%
+        end
       end
     end
+  end
+  if nitems > 1
+%>
+</ol>
+<%
   end
 end
 %>
