@@ -46,9 +46,15 @@ if items.count{ |i| i["rendered_status"] != "" || ! i["temp_loc"].nil? } > 0
     tloc = item["temp_loc"]
     stat = item["status"]
     cres = item["reserves"]
+    enum = item["enum"]
     if nitems > 1
 %>
 <li>
+<%
+    end
+    if !enum.nil?
+%>
+<%= enum %>
 <%
     end
     if stat.nil?
