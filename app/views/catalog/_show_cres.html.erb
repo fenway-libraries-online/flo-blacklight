@@ -45,13 +45,15 @@ else
 %>
     <dt class="blacklight-items">On reserve at a library:</dt>
     <dd class="blacklight-items">
+    <ol>
 <%
     bibs.sort{ |x, y| x["title"].downcase <=> y["title"].downcase }.each do |b|
 %>
-      <p style="padding-left: 2em; text-indent: -2em; margin-bottom: 0"><a href="/catalog/b<%= b["bib_id"] %>"><%= b["title"] %></a></p>
+      <li><a href="/catalog/<%= b["bib_id"] %>"><%= b["title"] %></a>
 <%
     end
 %>
+    </ol>
     </dd>
 <%
   end
@@ -60,15 +62,18 @@ else
 %>
     <dt class="blacklight-items">Available online:</dt>
     <dd class="blacklight-items">
+    <ol>
 <%
     eitems.sort{ |x, y| x["title"].downcase <=> y["title"].downcase }.each do |e|
       title, link = e["title"], e["link"]
       url, label = link["url"], link["label"]
 %>
       <p style="padding-left: 2em; text-indent: -2em; margin-bottom: 0"><%= title %><br /><a href="<%= url %>"><%= label %></a></p>
+      <li><%= title %><br /><a href="<%= url %>"><%= label %></a>
 <%
     end
 %>
+    </ol>
     </dd>
 <%
   end
