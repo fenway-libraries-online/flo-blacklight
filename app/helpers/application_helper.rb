@@ -36,6 +36,8 @@ module ApplicationHelper
     "mcp" => "MCPHS",
     "mcw" => "MCPHS (Worcester)",
     "mfa" => "Museum of Fine Arts",
+    "naf" => "NEC Firestone Audio Library",
+    "nas" => "NEC Spaulding Library",
     "nco" => "New England College of Optometry",
     "nec" => "New England Conservatory",
     "smfa"=> "School of the MFA",
