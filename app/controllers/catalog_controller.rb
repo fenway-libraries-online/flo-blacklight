@@ -10,7 +10,7 @@ class CatalogController < ApplicationController
       qt: 'search',
       rows: 10,
       facet: true,
-      fq: [],  # TODO: ["doctype:cres"],
+      fq: ["doctype:cres"],
     }
     
     #byebug
@@ -74,7 +74,6 @@ class CatalogController < ApplicationController
        :years_25 => { :label => 'last 25 years', :fq => "pub_date:[#{Time.now.year - 25 } TO *]" }
     }
     # ---------------------------------------------------- BEGIN FLO customizations
-    config.add_facet_field 'doctype',           label: 'Collection',    helper_method: :render_doctype_value, limit: true, collapse: false
     config.add_facet_field 'format',            label: 'Format',        helper_method: :render_format_value, limit: true
     config.add_facet_field 'inst_z',            label: 'Institution',   helper_method: :render_institution_value, limit: 20, sort: 'index'
     config.add_facet_field 'department_facet',  label: 'Department', limit: true, sort: 'index'
