@@ -130,7 +130,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'inst_z',                 label: 'Institution', helper_method: :render_institution_value_list
     config.add_show_field 'instructor_display',     label: 'Instructor'
     config.add_show_field 'department_display',     label: 'Department'
-    config.add_show_field 'poem_display',           label: 'Poem'
+    config.add_show_field 'contents_note',          label: 'Contents'
     config.add_show_field 'lib',                    label: 'Library holdings'
     config.add_show_field 'onl',                    label: 'Online access'
     # ---------------------------------------------------- END FLO customizations
