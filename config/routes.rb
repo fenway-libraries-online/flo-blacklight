@@ -5,8 +5,25 @@ Blacklight::Application.routes.draw do
   blacklight_for :catalog
   devise_for :users
 
-  get 'reserves', to: redirect('/?q=&f[doctype][]=cres')
-  get 'reserves/:inst', to: redirect('/?q=&f[doctype][]=cres&f[inst_z][]=%{inst}')
+  # get 'lib/:inst', to: redirect('/?q=&f[inst_z][]=%{inst}')
+  get '/ecl', to: redirect('/?q=&f[inst_z][]=ecl')
+  get '/emc', to: redirect('/?q=&f[inst_z][]=emc')
+  get '/epi', to: redirect('/?q=&f[inst_z][]=epi')
+  get '/flo', to: redirect('/?q=&f[inst_z][]=flo')
+  get '/les', to: redirect('/?q=&f[inst_z][]=les')
+  get '/luc', to: redirect('/?q=&f[inst_z][]=luc')
+  get '/mca', to: redirect('/?q=&f[inst_z][]=mca')
+  get '/mcp', to: redirect('/?q=&f[inst_z][]=mcp')
+  get '/mcw', to: redirect('/?q=&f[inst_z][]=mcw')
+  get '/mfa', to: redirect('/?q=&f[inst_z][]=mfa')
+  get '/naf', to: redirect('/?q=&f[inst_z][]=naf')
+  get '/nas', to: redirect('/?q=&f[inst_z][]=nas')
+  get '/nco', to: redirect('/?q=&f[inst_z][]=nco')
+  get '/wen', to: redirect('/?q=&f[inst_z][]=wen')
+  get '/whe', to: redirect('/?q=&f[inst_z][]=whe')
+
+  # get 'reserves', to: redirect('/?q=&f[doctype][]=cres')
+  # get 'reserves/:inst', to: redirect('/?q=&f[doctype][]=cres&f[inst_z][]=%{inst}')
 
   # get 'reserves' => '/reserves.html'
   # get 'reserves/:id' => 'catalog#purchase', as: :purchase
