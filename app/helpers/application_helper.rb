@@ -39,8 +39,6 @@ module ApplicationHelper
     "naf" => "NEC Firestone Audio Library",
     "nas" => "NEC Spaulding Library",
     "nco" => "New England College of Optometry",
-    "nec" => "New England Conservatory",
-    "smfa"=> "School of the MFA",
     "wen" => "Wentworth Institute of Technology",
     "whe" => "Wheelock College",
     # Legacy and deprecated
@@ -48,6 +46,8 @@ module ApplicationHelper
     "eme" => "Emerson College",
     "emm" => "Emmanuel College",
     "aib" => "Lesley Moriarty",
+    "nec" => "New England Conservatory",
+    "smfa"=> "School of the MFA",
     "wor" => "MCPHS (Worcester)",
     "wit" => "Wentworth Institute of Technology",
     "mas" => "MassArt",
