@@ -4,17 +4,13 @@ class CatalogController < ApplicationController
 
   include Blacklight::Catalog
 
-  def foo
-    partial
-  end
-
   configure_blacklight do |config|
     ## Default parameters to send to solr for all search-like requests. See also SearchBuilder#processed_parameters
     config.default_solr_params = { 
       qt: 'search',
       rows: 10,
       facet: true,
-      fq: [],
+      fq: ["doctype:cres"],
     }
     
     #byebug
@@ -78,7 +74,6 @@ class CatalogController < ApplicationController
        :years_25 => { :label => 'last 25 years', :fq => "pub_date:[#{Time.now.year - 25 } TO *]" }
     }
     # ---------------------------------------------------- BEGIN FLO customizations
-    config.add_facet_field 'doctype',           label: 'Collection',    helper_method: :render_doctype_value, limit: true, collapse: false
     config.add_facet_field 'format',            label: 'Format',        helper_method: :render_format_value, limit: true
     config.add_facet_field 'inst_z',            label: 'Institution',   helper_method: :render_institution_value, limit: 20, sort: 'index'
     config.add_facet_field 'department_facet',  label: 'Department', limit: true, sort: 'index'
@@ -108,6 +103,7 @@ class CatalogController < ApplicationController
     config.add_index_field 'format', :label => 'Format', helper_method: :render_format_value_list
     config.add_index_field 'lib',                   label: 'Library holdings'
     config.add_index_field 'onl',                   label: 'Online access'
+    config.add_index_field 'inst_z',                label: 'Institution', helper_method: :render_institution_value_list
     config.add_index_field 'course_display',        label: 'Course'
     config.add_index_field 'instructor_display',    label: 'Instructor'
     config.add_index_field 'department_display',    label: 'Department'
@@ -202,10 +198,36 @@ class CatalogController < ApplicationController
     # label in pulldown is followed by the name of the SOLR field to sort by and
     # whether the sort is ascending or descending (it must be asc or desc
     # except in the relevancy case).
-    config.add_sort_field 'score desc, pub_date_sort desc, title_sort asc', :label => 'relevance'
-    config.add_sort_field 'pub_date_sort desc, title_sort asc', :label => 'year'
-    config.add_sort_field 'author_sort asc, title_sort asc', :label => 'author'
-    config.add_sort_field 'title_sort asc, pub_date_sort desc', :label => 'title'
+    config.add_sort_field('relevance') do |field|
+      field.sort = 'score desc, pub_date_sort desc, title_sort asc'
+      field.label = 'relevance'
+    end
+    # config.add_sort_field 'pub_date_sort desc, title_sort asc', :label => 'year'
+    config.add_sort_field('instructor') do |field|
+      field.sort = 'instructor_sort asc, course_sort asc'
+      field.label = 'instructor'
+    end
+    config.add_sort_field('department') do |field|
+      field.sort = 'department_sort asc, instructor_sort asc, course_sort asc'
+      field.label = 'department'
+    end
+    config.add_sort_field('institution') do |field|
+      field.sort = 'inst_sort asc, course_sort asc, instructor_sort asc'
+      field.label = 'institution'
+    end
+    config.add_sort_field('course') do |field|
+      field.sort = 'course_sort asc, instructor_sort asc'
+      field.label = 'course'
+    end
+    #config.add_sort_field('year') do |field|
+    #  field.sort = 'pub_date_sort desc, title_sort asc'
+    #  field.label = 'year'
+    #end
+    #config.add_sort_field('author') do |field|
+    #  field.sort = 'author_sort asc, title_sort asc'
+    #  field.label = 'author'
+    #end
+    #config.add_sort_field 'title_sort asc, pub_date_sort desc', label: 'title'
 
     # If there are more than this many search results, no spelling ("did you 
     # mean") suggestion is offered.

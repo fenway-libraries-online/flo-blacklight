@@ -40,15 +40,23 @@ end
 <%
 if items.count{ |i| i["rendered_status"] != "" || ! i["temp_loc"].nil? } > 0
 %>
-<ol style="margin-left: 2em; margin-top: 0; margin-bottom: 0">
+<ul style="margin-left: 2em; margin-top: 0; margin-bottom: 0">
 <%
   items.each do |item|
     tloc = item["temp_loc"]
     stat = item["status"]
     cres = item["reserves"]
-    if nitems > 1
+    enum = item["enum"]
 %>
 <li>
+<%
+    if nitems > 1
+%>
+<%
+    end
+    if !enum.nil?
+%>
+<%= enum %>
 <%
     end
     if stat.nil?
@@ -77,7 +85,7 @@ Available
     end
   end
 %>
-</ol>
+</ul>
 <%
 end
 %>
