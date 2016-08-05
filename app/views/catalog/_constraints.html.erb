@@ -1,14 +1,11 @@
-<% if query_has_constraints? %>
-
-      <div id="appliedParams" class="clearfix constraints-container">
 <%
     fields = params[:f] || {}
     doctype = fields[:doctype] || []
     inst = fields[:inst_z] || []
 %>
-<% if doctype.include?('cres') %>
-        <img src="http://blacklight.flo.org/assets/cres.png" height="24" width="24" />
-<% end %>
+<% if query_has_constraints? %>
+      <div id="appliedParams" class="clearfix constraints-container">
+        <img src="/assets/cres.png" height="24" width="24" />
         <!--
         <div class="pull-right">
           <%=link_to t('blacklight.search.start_over'), start_over_path, :class => "catalog_startOverLink btn btn-sm btn-text", :id=>"startOverLink" %>
@@ -16,6 +13,18 @@
         -->
         <span class="constraints-label"><%= t('blacklight.search.filters.title') %></span>
         <%= render_constraints(params) %>
-<% if inst.include?('whe') %><!-- You are searching Wheelock materials --><% end %>
+        <% if inst.size == 0 %>
+            <p style="padding: 0px; margin: 0; font-weight: bold"><img src="/assets/warning.png" height="12" width="12" style="margin-right: 3px" />
+            These results include course reserves for all FLO institutions.
+            </p>
+        <% elsif inst.include?('whe') %>
+            <!-- You are searching Wheelock materials -->
+        <% end %>
       </div>
+<% elsif inst.size == 0 %>
+    <div id="appliedParams" class="clearfix constraints-container">
+        <p style="padding: 0px; margin: 0; font-weight: bold"><img src="/assets/warning.png" height="12" width="12" style="margin-right: 3px" />
+        These results include course reserves for all FLO institutions.
+        </p>
+    </div>
 <% end %>
