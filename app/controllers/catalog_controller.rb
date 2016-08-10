@@ -103,8 +103,8 @@ class CatalogController < ApplicationController
     config.add_index_field 'format', :label => 'Format', helper_method: :render_format_value_list
     config.add_index_field 'lib',                   label: 'Library holdings'
     config.add_index_field 'onl',                   label: 'Online access'
-    config.add_index_field 'inst_z',                label: 'Institution', helper_method: :render_institution_value_list
     config.add_index_field 'course_display',        label: 'Course'
+    config.add_index_field 'inst_z',                label: 'Institution', helper_method: :render_institution_value_list
     config.add_index_field 'instructor_display',    label: 'Instructor'
     config.add_index_field 'department_display',    label: 'Department'
     # ---------------------------------------------------- END FLO customizations
