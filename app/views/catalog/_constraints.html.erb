@@ -15,7 +15,7 @@
         <%= render_constraints(params) %>
         <% if inst.size == 0 %>
             <p style="padding: 0px; margin: 0; font-weight: bold"><img src="/assets/warning.png" height="12" width="12" style="margin-right: 3px" />
-            These results include course reserves for all FLO institutions.
+            To limit to your institution, please choose from the menu on the left.
             </p>
         <% elsif inst.include?('whe') %>
             <!-- You are searching Wheelock materials -->
@@ -24,7 +24,7 @@
 <% elsif inst.size == 0 %>
     <div id="appliedParams" class="clearfix constraints-container">
         <p style="padding: 0px; margin: 0; font-weight: bold"><img src="/assets/warning.png" height="12" width="12" style="margin-right: 3px" />
-        These results include course reserves for all FLO institutions.
+            To limit to your institution, please choose from the menu on the left.
         </p>
     </div>
 <% end %>
