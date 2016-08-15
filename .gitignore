@@ -36,9 +36,6 @@ inbox
 /jetty/lib
 
 /jetty.tar.gz
-<<<<<<< HEAD
 
 /B
-=======
 /app/assets/images/blacklight
->>>>>>> 14973e4... ignore abortive image munging
