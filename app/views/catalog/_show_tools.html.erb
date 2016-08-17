@@ -7,20 +7,3 @@
   # functions by default only on detail.
 
 -%>
-<% if @document[:doctype] != 'cres' %>
-<div class="panel panel-default show-tools">
-  <div class="panel-heading">
-    <%= t('blacklight.tools.title') %>
-  </div>
-
-  <div class="panel-body">
-    <ul class="nav">
-      <%= render_show_doc_actions @document do |config, inner| %>
-        <li class="<%= config.key %>">
-          <%= inner %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-</div>
-<% end %>
