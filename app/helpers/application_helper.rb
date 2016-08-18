@@ -34,6 +34,7 @@ module ApplicationHelper
     "luc" => "Lesley Moriarty",
     "mca" => "MassArt",
     "mcp" => "MCPHS",
+    "mcm" => "MCPHS (Manchester)",
     "mcw" => "MCPHS (Worcester)",
     "mfa" => "Museum of Fine Arts",
     "naf" => "NEC Firestone Audio Library",
