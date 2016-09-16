@@ -30,7 +30,7 @@ module ApplicationHelper
     "emc" => "Emmanuel College",
     "epi" => "Episcopal Divinity School",
     "flo" => "FLO (all libraries)",
-    "les" => "Lesley/EDS Sherrill",
+    "les" => "Lesley Sherrill",
     "luc" => "Lesley Moriarty",
     "mca" => "MassArt",
     "mcp" => "MCPHS",
