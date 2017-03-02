@@ -53,6 +53,9 @@ module ApplicationHelper
     "wit" => "Wentworth Institute of Technology",
     "mas" => "MassArt",
   }
+  @@collection_map ||= {
+    "lesley" => "Lesley (all)",
+  }
   @@access_map ||= {
     "onl" => "Online",
     "lib" => "At a library",
@@ -186,6 +189,7 @@ module ApplicationHelper
   def render_doctype_value_list(vals)     vals[:value].map { |v| @@doctype_map[v]     || v } end
   def render_format_value_list(vals)      vals[:value].map { |v| @@format_map[v]      || v } end
   def render_institution_value_list(vals) vals[:value].map { |v| @@institution_map[v] || v } end
+  def render_collection_value_list(vals)  vals[:value].map { |v| @@collection_map[v]  || v } end
   def render_access_value_list(vals)      vals[:value].map { |v| @@access_map[v]      || v } end
   def render_rda_content_value_list(vals) vals[:value].map { |v| @@rda_content_map[v] || v } end
   def render_rda_media_value_list(vals)   vals[:value].map { |v| @@rda_media_map[v]   || v } end
@@ -195,6 +199,7 @@ module ApplicationHelper
   def render_doctype_value(val)     @@doctype_map[val]     || val end
   def render_format_value(val)      @@format_map[val]      || val end
   def render_institution_value(val) @@institution_map[val] || val end
+  def render_collection_value(val)  @@collection_map[val]  || val end
   def render_access_value(val)      @@access_map[val]      || val end
   def render_rda_content_value(val) @@rda_content_map[val] || val end
   def render_rda_media_value(val)   @@rda_media_map[val]   || val end
